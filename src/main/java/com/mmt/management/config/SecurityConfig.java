@@ -12,7 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.ForwardAuthenticationSuccessHandler;
 
-import com.mmt.support.MyUserDetailsService;
+import com.mmt.management.support.MyUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
