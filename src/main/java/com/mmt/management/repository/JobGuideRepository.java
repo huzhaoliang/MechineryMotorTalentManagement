@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mmt.entity.JobGuide;
+import com.mmt.management.entity.JobGuide;
 
 public interface JobGuideRepository extends JpaRepository<JobGuide, Long> {
 	@Modifying

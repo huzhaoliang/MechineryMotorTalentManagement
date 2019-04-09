@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mmt.entity.User;
+import com.mmt.management.entity.User;
 
 @Repository("UserRepository")
 public interface UserRepository extends JpaSpecificationExecutor<User>, JpaRepository<User, Long>{

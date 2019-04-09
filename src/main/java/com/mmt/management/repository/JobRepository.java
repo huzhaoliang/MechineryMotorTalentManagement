@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mmt.entity.Job;
+import com.mmt.management.entity.Job;
 
 public interface JobRepository extends JpaRepository<Job, Long>{
 	@Query(value="select a.* from job a where a.com_id=:companyId", nativeQuery = true)

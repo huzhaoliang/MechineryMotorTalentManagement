@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mmt.entity.JobFair;
+import com.mmt.management.entity.JobFair;
 
 public interface JobFairRepository extends JpaRepository<JobFair, Long>{
 	
