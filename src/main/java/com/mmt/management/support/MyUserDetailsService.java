@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.mmt.management.entity.SysAdminUser;
-import com.mmt.management.entity.SysPermission;
+import com.mmt.management.entity.Menu;
 import com.mmt.management.entity.SysRole;
 import com.mmt.management.service.SysAdminUserService;
 
@@ -30,7 +30,7 @@ public class MyUserDetailsService implements UserDetailsService {
 		}
 		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 		for (SysRole role : sysUser.getRoleList()) {
-			for (SysPermission permission : role.getPermissionList()) {
+			for (Menu permission : role.getPermissionList()) {
 				authorities.add(new SimpleGrantedAuthority(permission.getCode()));
 			}
 		}

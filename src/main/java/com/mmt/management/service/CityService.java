@@ -9,8 +9,6 @@ import com.mmt.management.entity.City;
 public interface CityService {
 	City saveCity(City city);
 	
-	Page<City> getCitys(int pageNumber, int pageSize);
-	
 	List<City> getProvinces();
 	
 	void deleteCities(List<City> cities);

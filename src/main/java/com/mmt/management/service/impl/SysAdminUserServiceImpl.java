@@ -7,7 +7,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.mmt.management.entity.SysAdminUser;
-import com.mmt.management.entity.SysPermission;
+import com.mmt.management.entity.Menu;
 import com.mmt.management.entity.SysRole;
 import com.mmt.management.repository.SysAdminUserRepository;
 import com.mmt.management.service.SysAdminUserService;
@@ -27,7 +27,7 @@ public class SysAdminUserServiceImpl implements SysAdminUserService{
 	@Override
 	public SysAdminUser checkUserByName(String name) {
 		SysRole role = new SysRole("ADMIN", "管理员");
-		SysPermission p1 = new SysPermission();
+		Menu p1 = new Menu();
 		p1.setCode("MAIN");
 		p1.setName("主界面");
 		p1.setUrl("/manage/url");

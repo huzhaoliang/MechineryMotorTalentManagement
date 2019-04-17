@@ -31,14 +31,6 @@ public class CityServiceImpl implements CityService{
 	}
 
 	@Override
-	public Page<City> getCitys(int pageNumber, int pageSize) {
-		Sort sort = new Sort(Sort.Direction.DESC, "id");
-		PageRequest request = PageRequest.of(pageNumber - 1, pageSize, sort);
-		Page<City> citys = cityRepository.findAll(request);
-		return citys;
-	}
-
-	@Override
 	public List<City> getProvinces() {
 		return cityRepository.findProvinces();
 	}
@@ -57,25 +49,39 @@ public class CityServiceImpl implements CityService{
 	public Page<City> getCitysByQueries(Long parentId, String name, int pageNumber, int pageSize) {
 		Sort sort = new Sort(Sort.Direction.DESC, "id");
 		PageRequest request = PageRequest.of(pageNumber - 1, pageSize, sort);
-		Specification<City> spec = new Specification<City>() {
-			public Predicate toPredicate(Root<City> root, CriteriaQuery<?> query,CriteriaBuilder cb) {
-				Path<String> nameAttribute = root.get("name");
-				Predicate p1 = cb.like(nameAttribute, "%"+name+"%");
-				Predicate p = cb.and(p1);
-				if(parentId != -1) {
-					Path<Integer> parentIdAttribute = root.get("parentId");
-					Predicate p2 = cb.equal(parentIdAttribute, parentId);
-					p = cb.and(p1, p2);
+		Page<City> citys = null;
+		if(parentId == -1 && "".equals(name)){
+			citys = cityRepository.findAll(request);
+		}else{
+			Specification<City> spec = new Specification<City>() {
+				public Predicate toPredicate(Root<City> root, CriteriaQuery<?> query,CriteriaBuilder cb) {
+					Predicate p = null;
+					if(!"".equals(name)){
+						Path<String> nameAttribute = root.get("name");
+						Predicate p1 = cb.like(nameAttribute, "%"+name+"%");
+						p = cb.and(p1);
+						if(parentId != -1) {
+							Path<Integer> parentIdAttribute = root.get("parentId");
+							Predicate p2 = cb.equal(parentIdAttribute, parentId);
+							p = cb.and(p1, p2);
+						}
+					}else{
+						if(parentId != -1) {
+							Path<Integer> parentIdAttribute = root.get("parentId");
+							Predicate p2 = cb.equal(parentIdAttribute, parentId);
+							p = cb.and(p2);
+						}
+					}
+					return p;
 				}
-				return p;
-			}  
-		};
-		Page<City> citys = cityRepository.findAll(spec, request);
+			};
+			citys = cityRepository.findAll(spec, request);
+		}
 		return citys;
 	}
 
 	@Override
 	public void deleteCityById(Long id) {
-		cityRepository.deleteCityById(id);
+		cityRepository.deleteById(id);
 	}
 }

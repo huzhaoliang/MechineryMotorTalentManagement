@@ -10,15 +10,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="sys_permission")
-public class SysPermission {
+@Table(name="menu")
+public class Menu {
 	@Id
 	@GeneratedValue
 	@Column(name = "id", nullable = false)
 	private Long id;
 	private String name;
 	private Long sort;
-	private Long level;
+	private Long level; //1：一级菜单 2：二级菜单
 	private Long pid;
 	private String code;
 	private String url;

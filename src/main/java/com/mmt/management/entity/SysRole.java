@@ -20,7 +20,7 @@ public class SysRole {
 	private String roleCode;
 	private String roleName;
 	@OneToMany(cascade = CascadeType.ALL)
-	private List<SysPermission> permissionList;
+	private List<Menu> permissionList;
 	
 	public SysRole(String roleCode, String roleName) {
         this.roleCode = roleCode;
@@ -72,14 +72,14 @@ public class SysRole {
 	/**
 	 * @return the permissionList
 	 */
-	public List<SysPermission> getPermissionList() {
+	public List<Menu> getPermissionList() {
 		return permissionList;
 	}
 
 	/**
 	 * @param permissionList the permissionList to set
 	 */
-	public void setPermissionList(List<SysPermission> permissionList) {
+	public void setPermissionList(List<Menu> permissionList) {
 		this.permissionList = permissionList;
 	}
 }
