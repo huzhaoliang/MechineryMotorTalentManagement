@@ -1,7 +1,5 @@
 package com.mmt.management.controller;
 
-import com.mmt.management.entity.Menu;
-import com.mmt.management.service.MenuService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.mmt.management.entity.Menu;
+import com.mmt.management.service.MenuService;
 
 @Controller
 public class MenuController {
@@ -44,7 +45,7 @@ public class MenuController {
         return "manage/menu_list";
     }
 
-    @RequestMapping(value="/manage/permission_add")
+    @RequestMapping(value="/manage/menu_add")
     public String add(Model model) {
         logger.info("++++++++permission add++++++++++");
         List<Menu> topMenus = menuService.getTopMenus();
@@ -57,6 +58,9 @@ public class MenuController {
     @RequestMapping(value="/manage/menu_save", method=RequestMethod.POST)
     public String save(@ModelAttribute(value="menuForm") Menu menu) {
         logger.info("++++++++menu save++++++++++");
+        if(menu.getLevel() == 1){
+            menu.setPid(null);
+        }
         menuService.saveMenu(menu);
         return "redirect:menu_list";
     }
