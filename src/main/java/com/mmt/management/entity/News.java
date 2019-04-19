@@ -28,7 +28,7 @@ public class News {
 	private Clob content;
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "admin_id")
-	private SysAdminUser user;
+	private AdminUser user;
 	private Date publishTime;
 	/**
 	 * @return the id
@@ -69,13 +69,13 @@ public class News {
 	/**
 	 * @return the user
 	 */
-	public SysAdminUser getUser() {
+	public AdminUser getUser() {
 		return user;
 	}
 	/**
 	 * @param user the user to set
 	 */
-	public void setUser(SysAdminUser user) {
+	public void setUser(AdminUser user) {
 		this.user = user;
 	}
 	/**

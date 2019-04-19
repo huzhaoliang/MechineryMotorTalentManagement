@@ -9,9 +9,7 @@ import com.mmt.management.entity.JobGuide;
 public interface JobGuideService {
 	JobGuide saveJobGuide(JobGuide jobGuide);
 	
-	Page<JobGuide> getJobGuides(int pageNumber, int pageSize);
-	
-	void deleteJobGuides(List<JobGuide> jobFairs);
+	Page<JobGuide> getJobGuides(String title, int pageNumber, int pageSize);
 	
 	JobGuide getOneJobGuide(Long id);
 	

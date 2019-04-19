@@ -6,33 +6,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import com.mmt.management.entity.SysAdminUser;
+import com.mmt.management.entity.AdminUser;
 import com.mmt.management.entity.Menu;
-import com.mmt.management.entity.SysRole;
-import com.mmt.management.repository.SysAdminUserRepository;
-import com.mmt.management.service.SysAdminUserService;
+import com.mmt.management.entity.Role;
+import com.mmt.management.repository.AdminUserRepository;
+import com.mmt.management.service.AdminUserService;
 
-@Service(value="SysAdminUserService")
-public class SysAdminUserServiceImpl implements SysAdminUserService{
+@Service(value="AdminUserService")
+public class AdminUserServiceImpl implements AdminUserService{
 	
 	@Autowired
-	private SysAdminUserRepository adminRepository;
+	private AdminUserRepository adminRepository;
 
 	@Override
-	public SysAdminUser checkUserByNameAndPwd(String name, String password) {
+	public AdminUser checkUserByNameAndPwd(String name, String password) {
 		return adminRepository.checkUserByNameAndPwd(name, password);
 	}
 
 	@Cacheable(cacheNames = "authority", key = "#name")
 	@Override
-	public SysAdminUser checkUserByName(String name) {
-		SysRole role = new SysRole("ADMIN", "管理员");
+	public AdminUser checkUserByName(String name) {
+		Role role = new Role("ADMIN", "管理员");
 		Menu p1 = new Menu();
 		p1.setCode("MAIN");
 		p1.setName("主界面");
 		p1.setUrl("/manage/url");
 		role.setPermissionList(Arrays.asList(p1));
-		SysAdminUser user = adminRepository.checkUserByName(name);
+		AdminUser user = adminRepository.checkUserByName(name);
 		if(null == user) return null;
 		else {
 			user.setRoleList(Arrays.asList(role));

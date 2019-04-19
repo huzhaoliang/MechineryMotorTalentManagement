@@ -28,7 +28,7 @@ public class ResumeTemplate {
 	private Date updateTime;
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "admin_id")
-	private SysAdminUser user;
+	private AdminUser user;
 	/**
 	 * @return the id
 	 */
@@ -80,13 +80,13 @@ public class ResumeTemplate {
 	/**
 	 * @return the user
 	 */
-	public SysAdminUser getUser() {
+	public AdminUser getUser() {
 		return user;
 	}
 	/**
 	 * @param user the user to set
 	 */
-	public void setUser(SysAdminUser user) {
+	public void setUser(AdminUser user) {
 		this.user = user;
 	}
 }

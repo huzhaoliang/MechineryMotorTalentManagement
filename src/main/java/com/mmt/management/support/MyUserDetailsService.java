@@ -11,25 +11,25 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.mmt.management.entity.SysAdminUser;
+import com.mmt.management.entity.AdminUser;
 import com.mmt.management.entity.Menu;
-import com.mmt.management.entity.SysRole;
-import com.mmt.management.service.SysAdminUserService;
+import com.mmt.management.entity.Role;
+import com.mmt.management.service.AdminUserService;
 
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 	@Autowired
-	private SysAdminUserService adminService;
+	private AdminUserService adminService;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		System.out.println("登录用户为："+ username);
-		SysAdminUser sysUser = adminService.checkUserByName(username);
+		AdminUser sysUser = adminService.checkUserByName(username);
 		if(null == sysUser) {
 			throw new UsernameNotFoundException(username);
 		}
 		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-		for (SysRole role : sysUser.getRoleList()) {
+		for (Role role : sysUser.getRoleList()) {
 			for (Menu permission : role.getPermissionList()) {
 				authorities.add(new SimpleGrantedAuthority(permission.getCode()));
 			}

@@ -9,14 +9,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.mmt.management.service.SysAdminUserService;
+import com.mmt.management.service.AdminUserService;
 
 @Controller
 @RequestMapping("/manage")
 public class MainController {
 
 	@Autowired
-	private SysAdminUserService userService;
+	private AdminUserService userService;
 	
 	
 	@RequestMapping(value = "/")

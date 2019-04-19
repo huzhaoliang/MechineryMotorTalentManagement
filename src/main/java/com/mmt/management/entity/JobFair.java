@@ -36,7 +36,7 @@ public class JobFair {
 	private Date status;// 0 未审核 1 审核通过
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "admin_id")
-	private SysAdminUser user;
+	private AdminUser user;
 	private String logo;
 	/**
 	 * @return the id
@@ -161,13 +161,13 @@ public class JobFair {
 	/**
 	 * @return the user
 	 */
-	public SysAdminUser getUser() {
+	public AdminUser getUser() {
 		return user;
 	}
 	/**
 	 * @param user the user to set
 	 */
-	public void setUser(SysAdminUser user) {
+	public void setUser(AdminUser user) {
 		this.user = user;
 	}
 }

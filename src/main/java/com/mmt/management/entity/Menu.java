@@ -24,7 +24,7 @@ public class Menu {
 	private String url;
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
-	private SysRole role;
+	private Role role;
 	
 	/**
 	 * @return the id
@@ -101,13 +101,13 @@ public class Menu {
 	/**
 	 * @return the role
 	 */
-	public SysRole getRole() {
+	public Role getRole() {
 		return role;
 	}
 	/**
 	 * @param role the role to set
 	 */
-	public void setRole(SysRole role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}
 	/**

@@ -20,7 +20,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="admin_user")
-public class SysAdminUser {
+public class AdminUser {
 	@Id
 	@GeneratedValue
 	@Column(name = "id", nullable = false)
@@ -36,7 +36,7 @@ public class SysAdminUser {
     	joinColumns = @JoinColumn(name = "admin_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-	private List<SysRole> roleList;
+	private List<Role> roleList;
 	
 	/**
 	 * @return the id
@@ -89,13 +89,13 @@ public class SysAdminUser {
 	/**
 	 * @return the roleList
 	 */
-	public List<SysRole> getRoleList() {
+	public List<Role> getRoleList() {
 		return roleList;
 	}
 	/**
 	 * @param roleList the roleList to set
 	 */
-	public void setRoleList(List<SysRole> roleList) {
+	public void setRoleList(List<Role> roleList) {
 		this.roleList = roleList;
 	}
 }

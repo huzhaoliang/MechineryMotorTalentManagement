@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="sys_role")
-public class SysRole {
+public class Role {
 	@Id
 	@GeneratedValue
 	@Column(name = "id", nullable = false)
@@ -22,7 +22,7 @@ public class SysRole {
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Menu> permissionList;
 	
-	public SysRole(String roleCode, String roleName) {
+	public Role(String roleCode, String roleName) {
         this.roleCode = roleCode;
         this.roleName = roleName;
     }
