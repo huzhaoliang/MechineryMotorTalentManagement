@@ -29,7 +29,8 @@ public class JobFair {
     @JoinColumn(name = "city_id")
 	private City city;
 	private String locate;
-	private Clob content;
+	@Column(columnDefinition="TEXT")
+	private String content;
 	private Date startDate;
 	private Date endDate;
 	private Date publishTime;
@@ -74,18 +75,11 @@ public class JobFair {
 	public void setLocate(String locate) {
 		this.locate = locate;
 	}
-	/**
-	 * @return the content
-	 */
-	public Clob getContent() {
-		return content;
-	}
-	/**
-	 * @param content the content to set
-	 */
-	public void setContent(Clob content) {
-		this.content = content;
-	}
+
+	public String getContent(){return content;}
+
+	public void setContent(String content){this.content = content;}
+
 	/**
 	 * @return the startDate
 	 */
