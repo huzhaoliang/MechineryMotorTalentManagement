@@ -27,7 +27,7 @@ public class CityController {
 	@RequestMapping(value="/manage/city_list")
 	public String list(Model model, @ModelAttribute(value="parentId") String parentId, @ModelAttribute(value="name") String name) {
 		System.out.println("++++++++city list++++++++++" + parentId + name);
-		Page<City> citys = cityService.getCitysByQueries(Long.valueOf(parentId), name, 1, 20);
+		Page<City> citys = cityService.getCitysByQueries(parentId, name, 1, 20);
 		
 		if(citys != null) {
 			model.addAttribute("citys", citys);

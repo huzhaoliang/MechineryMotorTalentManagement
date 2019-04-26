@@ -15,7 +15,7 @@ public interface CityService {
 	
 	City getOneCity(Long id);
 	
-	Page<City> getCitysByQueries(Long parentId, String name, int pageNumber, int pageSize);
+	Page<City> getCitysByQueries(String parentId, String name, int pageNumber, int pageSize);
 	
 	void deleteCityById(Long id);
 }

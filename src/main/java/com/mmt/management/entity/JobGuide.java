@@ -18,14 +18,16 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name="job_type")
+@Table(name="job_guide")
 public class JobGuide {
 	@Id
 	@GeneratedValue
 	@Column(name = "id", nullable = false)
 	private Long id;
+	@Column(name = "title", nullable = false)
 	private String title;
-	private Clob content;
+	@Column(columnDefinition="TEXT")
+	private String content;
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "admin_id")
 	private AdminUser user;
@@ -54,18 +56,12 @@ public class JobGuide {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	/**
-	 * @return the content
-	 */
-	public Clob getContent() {
+
+	public String getContent(){
 		return content;
 	}
-	/**
-	 * @param content the content to set
-	 */
-	public void setContent(Clob content) {
-		this.content = content;
-	}
+
+	public void setContent(String content){this.content = content;}
 	/**
 	 * @return the user
 	 */

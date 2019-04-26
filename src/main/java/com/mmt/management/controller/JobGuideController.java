@@ -1,8 +1,6 @@
 package com.mmt.management.controller;
 
-import com.mmt.management.entity.Job;
 import com.mmt.management.entity.JobGuide;
-import com.mmt.management.entity.Menu;
 import com.mmt.management.service.JobGuideService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,9 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.Date;
 
 @Controller
 public class JobGuideController {
@@ -37,15 +33,32 @@ public class JobGuideController {
         return "manage/jobGuide_list";
     }
 
+    @RequestMapping(value="/manage/jobGuide_view")
+    public String view(Model model, @ModelAttribute(value="id") Long id) {
+        logger.info("++++++++jobGuide display++++++++++");
+        JobGuide jobGuide = jobGuideService.getOneJobGuide(id);
+        model.addAttribute("jobGuide", jobGuide);
+        return "manage/jobGuide_view";
+    }
+
     @RequestMapping(value="/manage/jobGuide_add")
     public String add(Model model) {
         logger.info("++++++++jobGuide add++++++++++");
         return "manage/jobGuide_add";
     }
 
+    @RequestMapping(value="/manage/jobGuide_update")
+    public String update(Model model, @ModelAttribute(value="id") Long id) {
+        logger.info("++++++++jobGuide update++++++++++");
+        JobGuide jobGuide = jobGuideService.getOneJobGuide(id);
+        model.addAttribute("jobGuide", jobGuide);
+        return "manage/jobGuide_update";
+    }
+
     @RequestMapping(value="/manage/jobGuide_save", method=RequestMethod.POST)
     public String save(@ModelAttribute(value="jobGuideForm") JobGuide jobGuide) {
         logger.info("++++++++jobGuide save++++++++++");
+        jobGuide.setPublishTime(new Date());
         jobGuideService.saveJobGuide(jobGuide);
         return "redirect:jobGuide_list";
     }

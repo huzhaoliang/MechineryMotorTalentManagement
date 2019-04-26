@@ -46,11 +46,11 @@ public class CityServiceImpl implements CityService{
 	}
 
 	@Override
-	public Page<City> getCitysByQueries(Long parentId, String name, int pageNumber, int pageSize) {
+	public Page<City> getCitysByQueries(String parentId, String name, int pageNumber, int pageSize) {
 		Sort sort = new Sort(Sort.Direction.DESC, "id");
 		PageRequest request = PageRequest.of(pageNumber - 1, pageSize, sort);
 		Page<City> citys = null;
-		if(parentId == -1 && "".equals(name)){
+		if("".equals(parentId) && "".equals(name)){
 			citys = cityRepository.findAll(request);
 		}else{
 			Specification<City> spec = new Specification<City>() {
@@ -60,13 +60,13 @@ public class CityServiceImpl implements CityService{
 						Path<String> nameAttribute = root.get("name");
 						Predicate p1 = cb.like(nameAttribute, "%"+name+"%");
 						p = cb.and(p1);
-						if(parentId != -1) {
+						if(!"-1".equals(parentId)) {
 							Path<Integer> parentIdAttribute = root.get("parentId");
 							Predicate p2 = cb.equal(parentIdAttribute, parentId);
 							p = cb.and(p1, p2);
 						}
 					}else{
-						if(parentId != -1) {
+						if(!"-1".equals(parentId)) {
 							Path<Integer> parentIdAttribute = root.get("parentId");
 							Predicate p2 = cb.equal(parentIdAttribute, parentId);
 							p = cb.and(p2);

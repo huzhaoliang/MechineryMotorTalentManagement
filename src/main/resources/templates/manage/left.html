@@ -33,11 +33,12 @@
             <ul class="list-unstyled">
                 <li> <a href="/manage/main"><i class="icon-home"></i>主界面</a></li>
                 <li th:class="${active=='admin'}?'active':''"><a href="#admins" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>管理员</a>
-                    <ul id="admins" class="collapse list-unstyled">
+                    <ul id="admins" class="collapse">
                     	<li><a href="/manage/admin">用户管理</a></li> 
                         <li><a href="/manage/admin_role">角色管理</a></li> 
                         <li><a href="/manage/menu_list">菜单管理</a></li>
                         <li><a href="/manage/city_list">城市管理</a></li>
+                        <li><a href="/manage/jobGuide_list">求职指导</a></li>
                     </ul>
                 </li>
                 <li th:class="${active=='enterprise'}?'active':''"><a href="#enterprises" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-building-o"></i>企业管理</a>
@@ -46,13 +47,6 @@
                         <li><a href="/manage/enter_permit">企业权限</a></li>  
                         <li><a href="/manage/enter_black_list">黑名单</a></li> 
                         <li><a href="/manage/enter_freeze">冻结</a></li> 
-                    </ul>
-                </li>
-                <li th:class="${active=='user'}?'active':''"><a href="#users" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-file-o"></i>用户管理</a>
-                    <ul id="users" class="collapse list-unstyled">
-                        <li><a href="/manage/user">用户信息</a></li> 
-                        <li><a href="/manage/user_permit">用户权限</a></li>
-                        <li><a href="/manage/user_black_list">黑名单</a></li>
                     </ul>
                 </li>
                 <li><a href="/manage/safe_center"> <i class="icon-grid"></i>安全中心</a></li>

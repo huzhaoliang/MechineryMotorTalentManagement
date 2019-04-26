@@ -41,6 +41,6 @@ public class JobFairServiceImpl implements JobFairService{
 
 	@Override
 	public void deleteJobFairById(Long id) {
-		jobFairRepository.deleteJobFairById(id);
+		jobFairRepository.deleteById(id);
 	}
 }

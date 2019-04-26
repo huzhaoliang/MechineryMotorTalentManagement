@@ -29,44 +29,40 @@
     <div class="page-content d-flex align-items-stretch">
 
        <div th:include="/manage/left"></div>
+		<div class="content-inner form-cont">
+            <div class="row">
+                <div class="col-md-12">
 
-        <div class="content-inner chart-cont">
-            <!--***** CONTENT *****-->
-            <div class="card form" id="form1">
-            	<a th:href="@{'/manage/jobGuide_add'}">新增求职指导</a>
-                <form class="form-inline" id="city_form" th:action="@{/manage/jobGuide_list}" method="get">
-				<label class="mr-sm-2" for="inlineFormCustomSelect">标题：</label>
-				 <div class="form-check mb-2 mr-sm-2 mb-sm-0">
-					<input class="form-control" type="text" name="title" id="title" th:value="${title}" style="width:200px;"/>
-				</div> 
-				<button type="submit" class="btn btn-general btn-blue mr-2">查询</button> 
-                </form>  
+                    <!--***** BASIC FORM *****-->
+                    <div class="card form" id="form1">
+                    	<div class="card-header">
+                            <h3>求职指导查看</h3>
+                        </div>
+                        <br/>
+                        <form id="jobGuide_form" th:action="@{/manage/jobGuide_save}" th:object="${jobGuideForm}" method="post">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <legend>标题：</legend>
+                                    <span class="panel-body" th:text="${jobGuide.title}"></span>
+                                </div>
+                                <div class="form-group">
+                                    <legend>内容：</legend>
+                                    <textarea rows="10" cols="100" th:text="${jobGuide.content}"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <legend>发布时间：</legend>
+                                    <span class="panel-body" th:text="${jobGuide.publishTime}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-general btn-white" onclick="javascript:history.back();">返回</button>
+                        </form>
+                    </div>
+                </div>
             </div>
-			<div class="row">
-                <table class="table table-hover">
-                  <thead>
-                    <tr class="bg-info text-white">
-                      <th>#</th>
-                      <th>标题</th>
-                      <th>发布时间</th>
-                      <th>操作</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  	<tr th:each="jobGuide,jobGuideStat:${jobGuides}">
-                  	<th scope="row" th:text="${jobGuideStat.index+1}"></th>
-                    <td th:text="${jobGuide.title}"></td>
-                    <td th:text="${jobGuide.publishTime}"></td>
-                    <td><a th:href="@{'/manage/jobGuide_view?id='+${jobGuide.id}}">查看</a>
-                        <a th:href="@{'/manage/jobGuide_update?id='+${jobGuide.id}}">修改</a>
-                        <a th:href="@{'/manage/jobGuide_delete?id='+${jobGuide.id}}">删除</a>
-                    </td>
-                  	</tr>
-                  </tbody>
-                </table>
-            </div>
-         </div>
-    </div> 
+        </div>
+    </div>
 
     <!--Global Javascript -->
     <script src="/static/js/jquery.min.js"></script>
@@ -76,7 +72,7 @@
     <script src="/static/js/jquery.cookie.js"></script>
     <script src="/static/js/jquery.validate.min.js"></script> 
     <script src="/static/js/chart.min.js"></script> 
-    <script src="/static/js/front.js"></script> 
+    <script src="/static/js/front.js"></script>
 </body>
 
 </html>
