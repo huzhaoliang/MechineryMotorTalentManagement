@@ -1,7 +1,6 @@
 package com.mmt.management.service.impl;
 
-import java.util.List;
-
+import com.mmt.management.entity.City;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -9,9 +8,12 @@ import org.springframework.data.domain.Sort;
 import com.mmt.management.entity.JobType;
 import com.mmt.management.repository.JobTypeRepository;
 import com.mmt.management.service.JobTypeService;
+import org.springframework.data.jpa.domain.Specification;
+
+import javax.persistence.criteria.*;
 
 public class JobTypeServiceImpl implements JobTypeService{
-	
+
 	@Autowired
 	private JobTypeRepository jobTypeRepository;
 
@@ -21,16 +23,35 @@ public class JobTypeServiceImpl implements JobTypeService{
 	}
 
 	@Override
-	public Page<JobType> getJobTypes(int pageNumber, int pageSize) {
-		Sort sort = new Sort(Sort.Direction.DESC, "id");
+	public Page<JobType> getJobTypes(String type, int pageNumber, int pageSize) {
+		Sort sort = new Sort(Sort.Direction.DESC, "updateTime");
 		PageRequest request = PageRequest.of(pageNumber - 1, pageSize, sort);
-		Page<JobType> jobTypes = jobTypeRepository.findAll(request);
-		return jobTypes;
+		Page<JobType> types = null;
+		if("".equals(type)){
+			types = jobTypeRepository.findAll(request);
+		}else{
+			Specification<JobType> spec = new Specification<JobType>() {
+				public Predicate toPredicate(Root<JobType> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+					Predicate p = null;
+					Path<String> typeAttribute = root.get("type");
+					Predicate p1 = cb.like(typeAttribute, "%"+type+"%");
+					p = cb.and(p1);
+					return p;
+				}
+			};
+			types = jobTypeRepository.findAll(spec, request);
+		}
+		return types;
 	}
 
 	@Override
-	public void deleteJobType(List<JobType> jobTypes) {
-		jobTypeRepository.deleteInBatch(jobTypes);
+	public void deleteJobTypeById(Long id) {
+		jobTypeRepository.deleteById(id);
+	}
+
+	@Override
+	public JobType getJobTypeById(Long id) {
+		return jobTypeRepository.getOne(id);
 	}
 
 }

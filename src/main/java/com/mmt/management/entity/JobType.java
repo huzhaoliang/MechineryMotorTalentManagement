@@ -1,5 +1,7 @@
 package com.mmt.management.entity;
 
+import org.springframework.stereotype.Controller;
+
 import java.util.Date;
 import java.util.List;
 
@@ -24,8 +26,9 @@ public class JobType {
 	@GeneratedValue
 	@Column(name = "id", nullable = false)
 	private Long id;
+	@Column(nullable = false, unique=true)
 	private String type;
-	private Long flag;// 1， 2， 3
+	private Long flag;// 1， 2
 	private Long parentId;
 	private Date updateTime;
 	@OneToMany(cascade = CascadeType.ALL)

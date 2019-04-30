@@ -8,8 +8,10 @@ import com.mmt.management.entity.JobType;
 
 public interface JobTypeService {
 	JobType saveJobType(JobType jobType);
-	
-	Page<JobType> getJobTypes(int pageNumber, int pageSize);
-	
-	void deleteJobType(List<JobType> jobTypes);
+
+	Page<JobType> getJobTypes(String type, int pageNumber, int pageSize);
+
+	void deleteJobTypeById(Long id);
+
+	JobType getJobTypeById(Long id);
 }
