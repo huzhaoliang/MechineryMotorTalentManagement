@@ -84,7 +84,10 @@ public class CityController {
 	@RequestMapping(value="/manage/city_delete")
 	public String delete(Model model, @ModelAttribute(value="id") Long id) {
 		logger.info("++++++++city delete++++++++++"+id);
-		cityService.deleteCityById(id);
+		List<City> list = cityService.getCityByParent(id);
+		if(list == null || list.size() == 0){
+			cityService.deleteCityById(id);
+		}
 		return "redirect:city_list";
 	}
 }

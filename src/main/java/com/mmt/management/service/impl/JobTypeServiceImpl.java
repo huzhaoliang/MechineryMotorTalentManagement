@@ -1,6 +1,5 @@
 package com.mmt.management.service.impl;
 
-import com.mmt.management.entity.City;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -9,9 +8,12 @@ import com.mmt.management.entity.JobType;
 import com.mmt.management.repository.JobTypeRepository;
 import com.mmt.management.service.JobTypeService;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.*;
+import java.util.List;
 
+@Service("JobTypeService")
 public class JobTypeServiceImpl implements JobTypeService{
 
 	@Autowired
@@ -52,6 +54,16 @@ public class JobTypeServiceImpl implements JobTypeService{
 	@Override
 	public JobType getJobTypeById(Long id) {
 		return jobTypeRepository.getOne(id);
+	}
+
+	@Override
+	public List<JobType> getParentJobTypes() {
+		return jobTypeRepository.getParentJobTypes();
+	}
+
+	@Override
+	public List<JobType> getJobTypeByParent(Long parentId) {
+		return jobTypeRepository.getJobTypeByParent(parentId);
 	}
 
 }

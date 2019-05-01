@@ -84,4 +84,9 @@ public class CityServiceImpl implements CityService{
 	public void deleteCityById(Long id) {
 		cityRepository.deleteById(id);
 	}
+
+	@Override
+	public List<City> getCityByParent(Long parentId) {
+		return cityRepository.getCityByParent(parentId);
+	}
 }

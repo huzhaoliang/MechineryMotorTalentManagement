@@ -17,6 +17,12 @@ public class LoginController
 		logger.info("++++++++login action++++++++++");
 		return "manage/login";
 	}
+
+	@RequestMapping(value="/manage")
+	public String manageLogin1() {
+		logger.info("++++++++login action++++++++++");
+		return "manage/login";
+	}
 	
 	@RequestMapping("/manage/login-error")
 	public String manageLoginError(Model model) {

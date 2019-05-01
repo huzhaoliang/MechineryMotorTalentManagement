@@ -18,4 +18,6 @@ public interface CityService {
 	Page<City> getCitysByQueries(String parentId, String name, int pageNumber, int pageSize);
 	
 	void deleteCityById(Long id);
+
+	List<City> getCityByParent(Long parentId);
 }

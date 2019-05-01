@@ -10,7 +10,9 @@ import org.springframework.data.domain.Sort;
 import com.mmt.management.entity.JobFair;
 import com.mmt.management.repository.JobFairRepository;
 import com.mmt.management.service.JobFairService;
+import org.springframework.stereotype.Service;
 
+@Service("JobFairService")
 public class JobFairServiceImpl implements JobFairService{
 	
 	@Autowired

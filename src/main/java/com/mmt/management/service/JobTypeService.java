@@ -14,4 +14,8 @@ public interface JobTypeService {
 	void deleteJobTypeById(Long id);
 
 	JobType getJobTypeById(Long id);
+
+	List<JobType> getParentJobTypes();
+
+	List<JobType> getJobTypeByParent(Long id);
 }
