@@ -56,15 +56,15 @@
                                             </label>
                                         </div>
                                     </fieldset>
-                                    <div class="form-group" th:if="${jobType.flag eq 1}" style="display:none;" name="parentdiv">
+                                    <div class="form-group" th:if="${jobType.flag eq 1}" style="display:none;" id="parentdiv">
                                         <legend>父类别：</legend>
                                         <select class="form-control" name="parentId">
                                         <option th:each="ptype,ptypeStat:${parentTypes}" th:value="${ptype.id}" th:text="${ptype.type}" th:if="${ptype.id eq jobType.parentId}" th:selected="selected"></option>
                                         <option th:each="ptype,ptypeStat:${parentTypes}" th:value="${ptype.id}" th:text="${ptype.type}" th:if="${ptype.id ne jobType.parentId}"></option>
                                         </select>
                                     </div>
-                                    <div class="form-group" th:if="${jobType.flag eq 2}" style="display:block;" name="parentdiv">
-                                        <legend>省份：</legend>
+                                    <div class="form-group" th:if="${jobType.flag eq 2}" style="display:block;" id="parentdiv">
+                                        <legend>父类别：</legend>
                                         <select class="form-control" name="parentId">
                                         <option th:each="ptype,ptypeStat:${parentTypes}" th:value="${ptype.id}" th:text="${ptype.type}" th:if="${ptype.id eq jobType.parentId}" th:selected="selected"></option>
                                         <option th:each="ptype,ptypeStat:${parentTypes}" th:value="${ptype.id}" th:text="${ptype.type}" th:if="${ptype.id ne jobType.parentId}"></option>

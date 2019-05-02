@@ -56,14 +56,14 @@
                                             </label>
                                         </div>
                                     </fieldset>
-                                    <div class="form-group" th:if="${city.flag eq 1}" style="display:none;" name="provincediv">
+                                    <div class="form-group" th:if="${city.flag eq 1}" style="display:none;" id="provincediv">
                                         <legend>省份：</legend>
                                         <select class="form-control" name="parentId">
                                         <option th:each="prov,provStat:${provinces}" th:value="${prov.id}" th:text="${prov.name}" th:if="${prov.id eq city.parentId}" th:selected="selected"></option>
                                         <option th:each="prov,provStat:${provinces}" th:value="${prov.id}" th:text="${prov.name}" th:if="${prov.id ne city.parentId}"></option>
                                         </select>
                                     </div>
-                                    <div class="form-group" th:if="${city.flag eq 2}" style="display:block;" name="provincediv">
+                                    <div class="form-group" th:if="${city.flag eq 2}" style="display:block;" id="provincediv">
                                         <legend>省份：</legend>
                                         <select class="form-control" name="parentId">
                                         <option th:each="prov,provStat:${provinces}" th:value="${prov.id}" th:text="${prov.name}" th:if="${prov.id eq city.parentId}" th:selected="selected"></option>
