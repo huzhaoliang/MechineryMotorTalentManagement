@@ -62,6 +62,13 @@
                         <a th:href="@{'/manage/jobGuide_delete?id='+${jobGuide.id}}">删除</a>
                     </td>
                   	</tr>
+                    <tr align="right">
+                        <td colspan="4">
+                            <a th:if="${pageNumber gt 1}" th:href="@{'/manage/jobGuide_list?pageNumber='+${pageNumber-1}+'&title='+${title}}">上一页</a>
+                            <span th:text="'第'+${pageNumber}+'页'"></span>
+                            <a th:if="${pageNumber lt totalPages}" th:href="@{'/manage/jobGuide_list?pageNumber='+${pageNumber+1}+'&title='+${title}}">下一页</a>
+                        </td>
+                    </tr>
                   </tbody>
                 </table>
             </div>

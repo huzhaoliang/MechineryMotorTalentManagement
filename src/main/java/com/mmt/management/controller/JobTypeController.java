@@ -21,13 +21,16 @@ public class JobTypeController {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
+    private final static int pageSize = 20;
+
     @Autowired
     private JobTypeService jobTypeService;
 
     @RequestMapping(value="/manage/jobType_list")
-    public String list(Model model, @ModelAttribute(value="type") String type) {
+    public String list(Model model, @ModelAttribute(value="type") String type,
+                       @ModelAttribute(value="pageNumber") int pageNumber) {
         System.out.println("++++++++jobType list++++++++++" + type);
-        Page<JobType> jobTypes = jobTypeService.getJobTypes(type, 1, 20);
+        Page<JobType> jobTypes = jobTypeService.getJobTypes(type, pageNumber, pageSize);
 
         if(jobTypes != null) {
             model.addAttribute("jobTypes", jobTypes);
@@ -39,6 +42,8 @@ public class JobTypeController {
         }
         model.addAttribute("parentTypes", pTypeMap);
         model.addAttribute("type", type);
+        model.addAttribute("pageNumber", pageNumber);
+        model.addAttribute("totalPages", jobTypes.getTotalPages());
         return "manage/jobType_list";
     }
 

@@ -20,14 +20,18 @@ import com.mmt.management.service.CityService;
 @Controller
 public class CityController {
 	private Logger logger = LoggerFactory.getLogger(getClass());
+
+	private final static int pageSize = 20;
 	
 	@Autowired
 	private CityService cityService;
 	
 	@RequestMapping(value="/manage/city_list")
-	public String list(Model model, @ModelAttribute(value="parentId") String parentId, @ModelAttribute(value="name") String name) {
+	public String list(Model model, @ModelAttribute(value="parentId") String parentId,
+					   @ModelAttribute(value="name") String name,
+					   @ModelAttribute(value="pageNumber") int pageNumber) {
 		System.out.println("++++++++city list++++++++++" + parentId + name);
-		Page<City> citys = cityService.getCitysByQueries(parentId, name, 1, 20);
+		Page<City> citys = cityService.getCitysByQueries(parentId, name, pageNumber, pageSize);
 		
 		if(citys != null) {
 			model.addAttribute("citys", citys);
@@ -44,6 +48,8 @@ public class CityController {
 		}
 		model.addAttribute("parentId", parentId);
 		model.addAttribute("name", name);
+		model.addAttribute("pageNumber", pageNumber);
+		model.addAttribute("totalPages", citys.getTotalPages());
 		return "manage/city_list";
 	}
 	

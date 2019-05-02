@@ -64,6 +64,13 @@
                     <td><a th:href="@{'/manage/jobType_update?id='+${jobType.id}}">修改</a>
                     <a th:href="@{'/manage/jobType_delete?id='+${jobType.id}}">删除</a></td>
                   	</tr>
+                    <tr align="right">
+                        <td colspan="5">
+                            <a th:if="${pageNumber gt 1}" th:href="@{'/manage/jobType_list?pageNumber='+${pageNumber-1}+'&type='+${type}}">上一页</a>
+                            <span th:text="'第'+${pageNumber}+'页'"></span>
+                            <a th:if="${pageNumber lt totalPages}" th:href="@{'/manage/jobType_list?pageNumber='+${pageNumber+1}+'&type='+${type}}">下一页</a>
+                        </td>
+                    </tr>
                   </tbody>
                 </table>
             </div>

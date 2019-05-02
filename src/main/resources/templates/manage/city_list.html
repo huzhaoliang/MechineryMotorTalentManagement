@@ -70,6 +70,13 @@
                     <td><a th:href="@{'/manage/city_update?id='+${city.id}}">修改</a>
                     <a th:href="@{'/manage/city_delete?id='+${city.id}}">删除</a></td>
                   	</tr>
+                    <tr align="right">
+                        <td colspan="5">
+                            <a th:if="${pageNumber gt 1}" th:href="@{'/manage/city_list?pageNumber='+${pageNumber-1}+'&parentId='+${parentId}+'&name='+${name}}">上一页</a>
+                            <span th:text="'第'+${pageNumber}+'页'"></span>
+                            <a th:if="${pageNumber lt totalPages}" th:href="@{'/manage/city_list?pageNumber='+${pageNumber+1}+'&parentId='+${parentId}+'&name='+${name}}">下一页</a>
+                        </td>
+                    </tr>
                   </tbody>
                 </table>
             </div>

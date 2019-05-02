@@ -18,18 +18,23 @@ import java.util.Date;
 public class JobGuideController {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
+    private final static int pageSize = 20;
+
     @Autowired
     private JobGuideService jobGuideService;
 
     @RequestMapping(value="/manage/jobGuide_list")
-    public String list(Model model, @ModelAttribute(value="title") String title) {
+    public String list(Model model, @ModelAttribute(value="title") String title,
+                       @ModelAttribute(value="pageNumber") int pageNumber) {
         System.out.println("++++++++jobGuide list++++++++++");
-        Page<JobGuide> jobGuides = jobGuideService.getJobGuides(title,1, 12);
+        Page<JobGuide> jobGuides = jobGuideService.getJobGuides(title,pageNumber, pageSize);
 
         if(jobGuides != null) {
             model.addAttribute("jobGuides", jobGuides);
         }
         model.addAttribute("title", title);
+        model.addAttribute("pageNumber", pageNumber);
+        model.addAttribute("totalPages", jobGuides.getTotalPages());
         return "manage/jobGuide_list";
     }
 

@@ -1,20 +1,9 @@
 package com.mmt.management.entity;
 
-import java.sql.Clob;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="job")
@@ -25,21 +14,21 @@ public class Job {
 	private Long id;
 	private String name;
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "type_id")
-	private JobType jobType;//job type
+	@JoinColumn(name = "type_id")
+	private JobType jobType;
+	private Long comId;
+	private Long number;
+	private String startSalary;
+	private String endSalary;
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "com_id")
-	private EnterpriseUser company;
-	private Long number; 
-	private String salary;
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "city_id")
+	@JoinColumn(name = "city_id")
 	private City city;
-	private Long edu;
-	private Long exp;
+	private String edu;
+	private String exp;
 	private String tag;
 	private Date publishTime;
-	private Clob description;
+	@Column(columnDefinition="TEXT")
+	private String description;
 	private String contact;
 	private String contactPhone;
 	private String email;
@@ -47,21 +36,21 @@ public class Job {
 	private Long topFlag;//是否置顶
 	@ManyToMany(cascade = {
 			CascadeType.PERSIST,
-	        CascadeType.MERGE
-	    })
-    @JoinTable(name = "post_user_job",
-    	joinColumns = @JoinColumn(name = "job_id"),
-        inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
+			CascadeType.MERGE
+	})
+	@JoinTable(name = "post_user_job",
+			joinColumns = @JoinColumn(name = "job_id"),
+			inverseJoinColumns = @JoinColumn(name = "user_id")
+	)
 	private List<User> postUsers; //投递用户
 	@ManyToMany(cascade = {
 			CascadeType.PERSIST,
-	        CascadeType.MERGE
-	    })
-    @JoinTable(name = "collect_user_job",
-    	joinColumns = @JoinColumn(name = "job_id"),
-        inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
+			CascadeType.MERGE
+	})
+	@JoinTable(name = "collect_user_job",
+			joinColumns = @JoinColumn(name = "job_id"),
+			inverseJoinColumns = @JoinColumn(name = "user_id")
+	)
 	private List<User> collectUsers; //收藏用户
 	/**
 	 * @return the id
@@ -100,16 +89,16 @@ public class Job {
 		this.jobType = jobType;
 	}
 	/**
-	 * @return the company
+	 * @return the comId
 	 */
-	public EnterpriseUser getCompany() {
-		return company;
+	public Long getComId() {
+		return comId;
 	}
 	/**
-	 * @param company the company to set
+	 * @param comId the comId to set
 	 */
-	public void setCompany(EnterpriseUser company) {
-		this.company = company;
+	public void setComId(Long comId) {
+		this.comId = comId;
 	}
 	/**
 	 * @return the number
@@ -124,23 +113,34 @@ public class Job {
 		this.number = number;
 	}
 	/**
-	 * @return the salary
+	 * @return the startSalary
 	 */
-	public String getSalary() {
-		return salary;
+	public String getStartSalary() {
+		return startSalary;
 	}
 	/**
-	 * @param salary the salary to set
+	 * @param startSalary the startSalary to set
 	 */
-	public void setSalary(String salary) {
-		this.salary = salary;
+	public void setStartSalary(String startSalary) {
+		this.startSalary = startSalary;
+	}
+
+	/**
+	 * @return the endSalary
+	 */
+	public String getEndSalary() {
+		return endSalary;
+	}
+	/**
+	 * @param endSalary the endSalary to set
+	 */
+	public void setEndSalary(String endSalary) {
+		this.endSalary = endSalary;
 	}
 	/**
 	 * @return the city
 	 */
-	public City getCity() {
-		return city;
-	}
+	public City getCity() {return city;}
 	/**
 	 * @param city the city to set
 	 */
@@ -150,25 +150,25 @@ public class Job {
 	/**
 	 * @return the edu
 	 */
-	public Long getEdu() {
+	public String getEdu() {
 		return edu;
 	}
 	/**
 	 * @param edu the edu to set
 	 */
-	public void setEdu(Long edu) {
+	public void setEdu(String edu) {
 		this.edu = edu;
 	}
 	/**
 	 * @return the exp
 	 */
-	public Long getExp() {
+	public String getExp() {
 		return exp;
 	}
 	/**
 	 * @param exp the exp to set
 	 */
-	public void setExp(Long exp) {
+	public void setExp(String exp) {
 		this.exp = exp;
 	}
 	/**
@@ -198,13 +198,13 @@ public class Job {
 	/**
 	 * @return the description
 	 */
-	public Clob getDescription() {
+	public String getDescription() {
 		return description;
 	}
 	/**
 	 * @param description the description to set
 	 */
-	public void setDescription(Clob description) {
+	public void setDescription(String description) {
 		this.description = description;
 	}
 	/**
