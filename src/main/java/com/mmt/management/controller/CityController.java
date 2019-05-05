@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.mmt.management.support.Helper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,15 +53,7 @@ public class CityController {
 		model.addAttribute("name", name);
 		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("totalPages", citys.getTotalPages());
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username = "";
-		if (principal instanceof UserDetails) {
-			username = ((UserDetails)principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
-		System.out.println("username is" + username);
-		if("admin".equals(username)){
+		if(Helper.isSuperUser()){
 			model.addAttribute("isSystemAdmin",true);
 		}
 		return "manage/city_list";
@@ -73,15 +66,7 @@ public class CityController {
 		if(provinces != null) {
 			model.addAttribute("provinces", provinces);
 		}
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username = "";
-		if (principal instanceof UserDetails) {
-			username = ((UserDetails)principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
-		System.out.println("username is" + username);
-		if("admin".equals(username)){
+		if(Helper.isSuperUser()){
 			model.addAttribute("isSystemAdmin",true);
 		}
 		return "manage/city_add";
@@ -108,15 +93,7 @@ public class CityController {
 		if(provinces != null) {
 			model.addAttribute("provinces", provinces);
 		}
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username = "";
-		if (principal instanceof UserDetails) {
-			username = ((UserDetails)principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
-		System.out.println("username is" + username);
-		if("admin".equals(username)){
+		if(Helper.isSuperUser()){
 			model.addAttribute("isSystemAdmin",true);
 		}
 		return "manage/city_update";
@@ -128,17 +105,6 @@ public class CityController {
 		List<City> list = cityService.getCityByParent(id);
 		if(list == null || list.size() == 0){
 			cityService.deleteCityById(id);
-		}
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username = "";
-		if (principal instanceof UserDetails) {
-			username = ((UserDetails)principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
-		System.out.println("username is" + username);
-		if("admin".equals(username)){
-			model.addAttribute("isSystemAdmin",true);
 		}
 		return "redirect:city_list?pageNumber=1";
 	}

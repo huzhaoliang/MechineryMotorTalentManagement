@@ -2,6 +2,7 @@ package com.mmt.management.controller;
 
 import com.mmt.management.entity.JobGuide;
 import com.mmt.management.service.JobGuideService;
+import com.mmt.management.support.Helper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,15 +38,7 @@ public class JobGuideController {
         model.addAttribute("title", title);
         model.addAttribute("pageNumber", pageNumber);
         model.addAttribute("totalPages", jobGuides.getTotalPages());
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = "";
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
-        System.out.println("username is" + username);
-        if("admin".equals(username)){
+        if(Helper.isSuperUser()){
             model.addAttribute("isSystemAdmin",true);
         }
         return "manage/jobGuide_list";
@@ -56,15 +49,7 @@ public class JobGuideController {
         logger.info("++++++++jobGuide display++++++++++");
         JobGuide jobGuide = jobGuideService.getOneJobGuide(id);
         model.addAttribute("jobGuide", jobGuide);
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = "";
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
-        System.out.println("username is" + username);
-        if("admin".equals(username)){
+        if(Helper.isSuperUser()){
             model.addAttribute("isSystemAdmin",true);
         }
         return "manage/jobGuide_view";
@@ -73,15 +58,7 @@ public class JobGuideController {
     @RequestMapping(value="/manage/jobGuide_add")
     public String add(Model model) {
         logger.info("++++++++jobGuide add++++++++++");
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = "";
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
-        System.out.println("username is" + username);
-        if("admin".equals(username)){
+        if(Helper.isSuperUser()){
             model.addAttribute("isSystemAdmin",true);
         }
         return "manage/jobGuide_add";
@@ -92,15 +69,7 @@ public class JobGuideController {
         logger.info("++++++++jobGuide update++++++++++");
         JobGuide jobGuide = jobGuideService.getOneJobGuide(id);
         model.addAttribute("jobGuide", jobGuide);
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = "";
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
-        System.out.println("username is" + username);
-        if("admin".equals(username)){
+        if(Helper.isSuperUser()){
             model.addAttribute("isSystemAdmin",true);
         }
         return "manage/jobGuide_update";

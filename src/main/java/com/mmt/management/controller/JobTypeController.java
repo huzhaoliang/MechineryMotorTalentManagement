@@ -2,6 +2,7 @@ package com.mmt.management.controller;
 
 import com.mmt.management.entity.JobType;
 import com.mmt.management.service.JobTypeService;
+import com.mmt.management.support.Helper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,15 +47,7 @@ public class JobTypeController {
         model.addAttribute("type", type);
         model.addAttribute("pageNumber", pageNumber);
         model.addAttribute("totalPages", jobTypes.getTotalPages());
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = "";
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
-        System.out.println("username is" + username);
-        if("admin".equals(username)){
+        if(Helper.isSuperUser()){
             model.addAttribute("isSystemAdmin",true);
         }
         return "manage/jobType_list";
@@ -67,15 +60,7 @@ public class JobTypeController {
         if(parentTypes != null) {
             model.addAttribute("parentTypes", parentTypes);
         }
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = "";
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
-        System.out.println("username is" + username);
-        if("admin".equals(username)){
+        if(Helper.isSuperUser()){
             model.addAttribute("isSystemAdmin",true);
         }
         return "manage/jobType_add";
@@ -102,15 +87,7 @@ public class JobTypeController {
         if(parentTypes != null) {
             model.addAttribute("parentTypes", parentTypes);
         }
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = "";
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
-        System.out.println("username is" + username);
-        if("admin".equals(username)){
+        if(Helper.isSuperUser()){
             model.addAttribute("isSystemAdmin",true);
         }
         return "manage/jobType_update";

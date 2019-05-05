@@ -19,38 +19,6 @@ public class MainController {
 	@Autowired
 	private AdminUserService userService;
 	
-	
-	@RequestMapping(value = "/")
-	public String home() 
-	{
-		System.out.println("++++++to index.html+++++");
-		return "index";
-	}
-	
-	@RequestMapping(value = "/index")
-	public String index() {
-		System.out.println("++++++to index.html+++++");
-		return "index";
-	}
-	
-	@RequestMapping(value = "/signup")
-	public String signUp() {
-		System.out.println("++++++to signup.html+++++");
-		return "signup";
-	}
-	
-	@RequestMapping(value = "/job")
-	public String job() {
-		System.out.println("++++++to job.html+++++");
-		return "job";
-	}
-	
-	@RequestMapping(value = "/enterprise")
-	public String enterprise() {
-		System.out.println("++++++to enterprise.html+++++");
-		return "enterprise";
-	}
-	
 	@PreAuthorize("hasAuthority('MAIN')")
 	@RequestMapping(value = "/main")
 	public String main(Model model) {

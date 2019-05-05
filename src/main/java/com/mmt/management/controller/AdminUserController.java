@@ -1,7 +1,9 @@
 package com.mmt.management.controller;
 
+import com.mmt.management.config.SecurityConfig;
 import com.mmt.management.entity.AdminUser;
 import com.mmt.management.service.AdminUserService;
+import com.mmt.management.support.Helper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,14 +40,7 @@ public class AdminUserController {
         model.addAttribute("name", name);
         model.addAttribute("pageNumber", pageNumber);
         model.addAttribute("totalPages", users.getTotalPages());
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = "";
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
-        if("admin".equals(username)){
+        if(Helper.isSuperUser()){
             model.addAttribute("isSystemAdmin",true);
         }
         return "manage/adminUser_list";
@@ -54,14 +49,7 @@ public class AdminUserController {
     @RequestMapping(value="/manage/adminUser_add")
     public String add(Model model) {
         logger.info("++++++++adminUser add++++++++++");
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = "";
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
-        if("admin".equals(username)){
+        if(Helper.isSuperUser()){
             model.addAttribute("isSystemAdmin",true);
         }
         return "manage/adminUser_add";
