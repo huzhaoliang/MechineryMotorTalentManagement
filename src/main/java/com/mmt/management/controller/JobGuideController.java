@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -35,6 +37,17 @@ public class JobGuideController {
         model.addAttribute("title", title);
         model.addAttribute("pageNumber", pageNumber);
         model.addAttribute("totalPages", jobGuides.getTotalPages());
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = "";
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        System.out.println("username is" + username);
+        if("admin".equals(username)){
+            model.addAttribute("isSystemAdmin",true);
+        }
         return "manage/jobGuide_list";
     }
 
@@ -43,12 +56,34 @@ public class JobGuideController {
         logger.info("++++++++jobGuide display++++++++++");
         JobGuide jobGuide = jobGuideService.getOneJobGuide(id);
         model.addAttribute("jobGuide", jobGuide);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = "";
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        System.out.println("username is" + username);
+        if("admin".equals(username)){
+            model.addAttribute("isSystemAdmin",true);
+        }
         return "manage/jobGuide_view";
     }
 
     @RequestMapping(value="/manage/jobGuide_add")
     public String add(Model model) {
         logger.info("++++++++jobGuide add++++++++++");
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = "";
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        System.out.println("username is" + username);
+        if("admin".equals(username)){
+            model.addAttribute("isSystemAdmin",true);
+        }
         return "manage/jobGuide_add";
     }
 
@@ -57,6 +92,17 @@ public class JobGuideController {
         logger.info("++++++++jobGuide update++++++++++");
         JobGuide jobGuide = jobGuideService.getOneJobGuide(id);
         model.addAttribute("jobGuide", jobGuide);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = "";
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        System.out.println("username is" + username);
+        if("admin".equals(username)){
+            model.addAttribute("isSystemAdmin",true);
+        }
         return "manage/jobGuide_update";
     }
 
@@ -65,13 +111,13 @@ public class JobGuideController {
         logger.info("++++++++jobGuide save++++++++++");
         jobGuide.setPublishTime(new Date());
         jobGuideService.saveJobGuide(jobGuide);
-        return "redirect:jobGuide_list";
+        return "redirect:jobGuide_list?pageNumber=1";
     }
 
     @RequestMapping(value="/manage/jobGuide_delete")
     public String delete(Model model, @ModelAttribute(value="id") Long id) {
         logger.info("++++++++jobGuide delete++++++++++"+id);
         jobGuideService.deleteJobGuideById(id);
-        return "redirect:jobGuide_list";
+        return "redirect:jobGuide_list?pageNumber=1";
     }
 }

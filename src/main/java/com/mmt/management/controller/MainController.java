@@ -5,6 +5,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,6 +55,17 @@ public class MainController {
 	@RequestMapping(value = "/main")
 	public String main(Model model) {
 		System.out.println("++++++to main.html+++++");
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = "";
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+		System.out.println("username is" + username);
+		if("admin".equals(username)){
+			model.addAttribute("isSystemAdmin",true);
+		}
 		return "manage/main";
 	}
 	
@@ -64,7 +76,7 @@ public class MainController {
 	}
 	
 	@RequestMapping(value = "/left")
-	public String left() {
+	public String left(Model model) {
 		System.out.println("++++++to left.html+++++");
 		return "manage/left";
 	}

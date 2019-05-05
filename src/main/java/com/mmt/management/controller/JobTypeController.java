@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -44,6 +46,17 @@ public class JobTypeController {
         model.addAttribute("type", type);
         model.addAttribute("pageNumber", pageNumber);
         model.addAttribute("totalPages", jobTypes.getTotalPages());
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = "";
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        System.out.println("username is" + username);
+        if("admin".equals(username)){
+            model.addAttribute("isSystemAdmin",true);
+        }
         return "manage/jobType_list";
     }
 
@@ -53,6 +66,17 @@ public class JobTypeController {
         List<JobType> parentTypes = jobTypeService.getParentJobTypes();
         if(parentTypes != null) {
             model.addAttribute("parentTypes", parentTypes);
+        }
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = "";
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        System.out.println("username is" + username);
+        if("admin".equals(username)){
+            model.addAttribute("isSystemAdmin",true);
         }
         return "manage/jobType_add";
     }
@@ -64,7 +88,7 @@ public class JobTypeController {
             jobType.setParentId(null);
         }
         jobTypeService.saveJobType(jobType);
-        return "redirect:jobType_list";
+        return "redirect:jobType_list?pageNumber=1";
     }
 
     @RequestMapping(value="/manage/jobType_update")
@@ -78,6 +102,17 @@ public class JobTypeController {
         if(parentTypes != null) {
             model.addAttribute("parentTypes", parentTypes);
         }
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = "";
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        System.out.println("username is" + username);
+        if("admin".equals(username)){
+            model.addAttribute("isSystemAdmin",true);
+        }
         return "manage/jobType_update";
     }
 
@@ -88,6 +123,6 @@ public class JobTypeController {
         if(list == null || list.size() == 0){
             jobTypeService.deleteJobTypeById(id);
         }
-        return "redirect:jobType_list";
+        return "redirect:jobType_list?pageNumber=1";
     }
 }

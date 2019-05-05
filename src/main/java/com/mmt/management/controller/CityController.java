@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -50,6 +52,17 @@ public class CityController {
 		model.addAttribute("name", name);
 		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("totalPages", citys.getTotalPages());
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = "";
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+		System.out.println("username is" + username);
+		if("admin".equals(username)){
+			model.addAttribute("isSystemAdmin",true);
+		}
 		return "manage/city_list";
 	}
 	
@@ -59,6 +72,17 @@ public class CityController {
 		List<City> provinces = cityService.getProvinces();
 		if(provinces != null) {
 			model.addAttribute("provinces", provinces);
+		}
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = "";
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+		System.out.println("username is" + username);
+		if("admin".equals(username)){
+			model.addAttribute("isSystemAdmin",true);
 		}
 		return "manage/city_add";
 	}
@@ -70,7 +94,7 @@ public class CityController {
 			city.setParentId(null);
 		}
 		cityService.saveCity(city);
-		return "redirect:city_list";
+		return "redirect:city_list?pageNumber=1";
 	}
 	
 	@RequestMapping(value="/manage/city_update")
@@ -84,6 +108,17 @@ public class CityController {
 		if(provinces != null) {
 			model.addAttribute("provinces", provinces);
 		}
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = "";
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+		System.out.println("username is" + username);
+		if("admin".equals(username)){
+			model.addAttribute("isSystemAdmin",true);
+		}
 		return "manage/city_update";
 	}
 	
@@ -94,6 +129,17 @@ public class CityController {
 		if(list == null || list.size() == 0){
 			cityService.deleteCityById(id);
 		}
-		return "redirect:city_list";
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = "";
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+		System.out.println("username is" + username);
+		if("admin".equals(username)){
+			model.addAttribute("isSystemAdmin",true);
+		}
+		return "redirect:city_list?pageNumber=1";
 	}
 }
