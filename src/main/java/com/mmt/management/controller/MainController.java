@@ -13,14 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.mmt.management.service.AdminUserService;
 
 @Controller
-@RequestMapping("/manage")
 public class MainController {
 
 	@Autowired
 	private AdminUserService userService;
-	
-	@PreAuthorize("hasAuthority('MAIN')")
-	@RequestMapping(value = "/main")
+
+	@RequestMapping(value="/manage/main")
 	public String main(Model model) {
 		System.out.println("++++++to main.html+++++");
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -36,14 +34,14 @@ public class MainController {
 		}
 		return "manage/main";
 	}
-	
-	@RequestMapping(value = "/top")
+
+	@RequestMapping(value="/manage/top")
 	public String top() {
 		System.out.println("++++++to top.html+++++");
 		return "manage/top";
 	}
-	
-	@RequestMapping(value = "/left")
+
+	@RequestMapping(value="/manage/left")
 	public String left(Model model) {
 		System.out.println("++++++to left.html+++++");
 		return "manage/left";
