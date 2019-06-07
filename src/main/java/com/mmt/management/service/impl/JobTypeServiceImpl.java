@@ -66,4 +66,16 @@ public class JobTypeServiceImpl implements JobTypeService{
 		return jobTypeRepository.getJobTypeByParent(parentId);
 	}
 
+	public List<JobType> findAllLevelOneJobType() {
+		return jobTypeRepository.findAllLevelOneJobType();
+	}
+
+	public List<JobType> findAllLevelTwoJobType() {
+		return jobTypeRepository.findAllLevelTwoJobType();
+	}
+
+	public List<JobType> findAllLevelThreeJobType() {
+		return jobTypeRepository.findAllLevelThreeJobType();
+	}
+
 }

@@ -1,9 +1,6 @@
 package com.mmt.management.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,42 +58,15 @@ public class CityController {
 			model.addAttribute("level_one_areas", level_one_areas);
 		}
 		if (level_two_areas != null) {
-			/*
-			Map<Long, List<City>> level_two_area_map = new HashMap<Long, List<City>>();
-			for (City c : level_one_areas) {
-				List<City> cities = new ArrayList<City>();
-				for (City c_inner: level_two_areas) {
-					if (c.getId() == c_inner.getParentId()) {
-						cities.add(c_inner);
-					}
-				}
-				level_two_area_map.put(c.getId(), cities);
-			}
-			model.addAttribute("level_two_area_map", level_two_area_map);
-			*/
 			model.addAttribute("level_two_areas", level_two_areas);
 		}
 		if (level_three_areas != null) {
-			/*
-			Map<Long, List<City>> level_three_area_map = new HashMap<Long, List<City>>();
-			for (City c : level_two_areas) {
-				List<City> cities = new ArrayList<City>();
-				for (City c_inner: level_three_areas) {
-					if (c.getId() == c_inner.getParentId()) {
-						cities.add(c_inner);
-					}
-				}
-				level_three_area_map.put(c.getId(), cities);
-			}
-			model.addAttribute("level_three_area_map", level_three_area_map);
-			*/
 			model.addAttribute("level_three_areas", level_three_areas);
 		}
 		
 		if(Helper.isSuperUser()){
 			model.addAttribute("isSystemAdmin",true);
 		}
-		
 		
 		
 		return "manage/city_list";

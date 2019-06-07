@@ -18,4 +18,10 @@ public interface JobTypeService {
 	List<JobType> getParentJobTypes();
 
 	List<JobType> getJobTypeByParent(Long id);
+	
+	List<JobType> findAllLevelOneJobType();
+	
+	List<JobType> findAllLevelTwoJobType();
+	
+	List<JobType> findAllLevelThreeJobType();
 }
