@@ -15,6 +15,15 @@ public interface CityRepository extends JpaSpecificationExecutor<City>, JpaRepos
 	@Query(value="select a.* from city a where a.flag=1", nativeQuery = true)
 	List<City> findProvinces();
 	
+	@Query(value="select a.* from city a where a.flag=1", nativeQuery = true)
+	List<City> findAllLevelOneArea();
+	
+	@Query(value="select a.* from city a where a.flag=2", nativeQuery = true)
+	List<City> findAllLevelTwoArea();
+	
+	@Query(value="select a.* from city a where a.flag=3", nativeQuery = true)
+	List<City> findAllLevelThreeArea();
+	
 	@Modifying
 	@Transactional
 	@Query(value="delete from city where id=:id", nativeQuery = true)

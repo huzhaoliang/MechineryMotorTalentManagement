@@ -3,6 +3,7 @@ package com.mmt.management.service;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.repository.Query;
 
 import com.mmt.management.entity.City;
 
@@ -10,6 +11,12 @@ public interface CityService {
 	City saveCity(City city);
 	
 	List<City> getProvinces();
+	
+	List<City> findAllLevelOneArea();
+	
+	List<City> findAllLevelTwoArea();
+	
+	List<City> findAllLevelThreeArea();
 	
 	void deleteCities(List<City> cities);
 	

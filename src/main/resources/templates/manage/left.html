@@ -20,26 +20,24 @@
 <script src="/static/js/jquery-3.3.1.min.js" type="text/javascript"></script>
 <script src="/static/js/tether.min.js" type="text/javascript"></script>
 <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+</style>
 </head>
 <body>
 <!--====================================================
                          left NAVBAR
 ======================================================--> 
 	 <!--***** SIDE NAVBAR *****-->
-        <nav class="side-navbar">
-            <br/>
-            <br/>
-            <!-- Sidebar Navidation Menus-->
-            <ul class="list-unstyled">
-                <li><a href="/manage/main"><i class="icon-home"></i>主界面</a></li>
-                <li><a href="/manage/adminUser_list?pageNumber=1" th:if="${isSystemAdmin}"><i class="icon-interface-windows"></i>用户管理</a></li>
+        <nav class="nav flex-column "><!-- side-navbar -->
+                <a class="nav-link" href="/manage/main">主界面</a>
+                <a class="nav-link" href="/manage/adminUser_list?pageNumber=1" th:if="${isSystemAdmin}">用户管理</a>
                 <!--li><a href="/manage/admin_role"><i class="icon-interface-windows"></i>角色管理</a></li>
                 <li><a href="/manage/menu_list"><i class="icon-interface-windows"></i>菜单管理</a></li-->
-                <li><a href="/manage/city_list?pageNumber=1"><i class="icon-interface-windows"></i>城市管理</a></li>
-                <li><a href="/manage/jobType_list?pageNumber=1"><i class="icon-interface-windows"></i>岗位类别</a></li>
-                <li><a href="/manage/jobGuide_list?pageNumber=1"><i class="icon-grid"></i>求职指导</a></li>
-                <li><a href="/manage/adminUser_update"><i class="icon-grid"></i>修改密码</a></li>
-            </ul>
+                <a class="nav-link" href="/manage/city_list?pageNumber=1">城市管理</a>
+                <a class="nav-link" href="/manage/jobType_list?pageNumber=1">岗位类别</a>
+                <a class="nav-link" href="/manage/jobGuide_list?pageNumber=1">求职指导</a>
+                <a class="nav-link" href="/manage/adminUser_update">修改密码</a>
         </nav>
 </body>
 </html>
