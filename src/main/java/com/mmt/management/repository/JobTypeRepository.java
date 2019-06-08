@@ -23,5 +23,5 @@ public interface JobTypeRepository extends JpaSpecificationExecutor<JobType>, Jp
     List<JobType> findAllLevelTwoJobType();
     
     @Query(value="select a.* from job_type a where a.flag=3", nativeQuery = true)
-    List<JobType> findAllLevelThreeJobType();                                                                          
+    List<JobType> findAllLevelThreeJobType();
 }
