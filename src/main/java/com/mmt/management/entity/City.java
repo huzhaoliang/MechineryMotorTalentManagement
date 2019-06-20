@@ -21,7 +21,7 @@ public class City {
 	@Column(name = "id", nullable = false)
 	private Long id;
 	private String name;
-	private Integer Flag;//1:一级 xx省 2: 子城市
+	private Integer Flag;//1:地区 2: 省份、直辖市 3:市县
 	private Long parentId;
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<EnterpriseUser> companys;

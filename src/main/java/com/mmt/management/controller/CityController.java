@@ -1,16 +1,10 @@
 package com.mmt.management.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import com.mmt.management.support.Helper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,20 +13,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.mmt.management.entity.City;
 import com.mmt.management.service.CityService;
+import com.mmt.management.support.Helper;
 
 @Controller
 public class CityController {
 	private Logger logger = LoggerFactory.getLogger(getClass());
-
-	private final static int pageSize = 20;
 	
 	@Autowired
 	private CityService cityService;
 	
 	@RequestMapping(value="/manage/city_list")
 	public String list(Model model, @ModelAttribute(value="parentId") String parentId,
-					   @ModelAttribute(value="name") String name,
-					   @ModelAttribute(value="pageNumber") int pageNumber) {
+					   @ModelAttribute(value="name") String name) {
+		/*
 		System.out.println("++++++++city list++++++++++" + parentId + name);
 		Page<City> citys = cityService.getCitysByQueries(parentId, name, pageNumber, pageSize);
 		
@@ -56,6 +49,26 @@ public class CityController {
 		if(Helper.isSuperUser()){
 			model.addAttribute("isSystemAdmin",true);
 		}
+		*/
+		List<City> level_one_areas = cityService.findAllLevelOneArea();
+		List<City> level_two_areas = cityService.findAllLevelTwoArea();
+		List<City> level_three_areas = cityService.findAllLevelThreeArea();
+		
+		if (level_one_areas != null) {
+			model.addAttribute("level_one_areas", level_one_areas);
+		}
+		if (level_two_areas != null) {
+			model.addAttribute("level_two_areas", level_two_areas);
+		}
+		if (level_three_areas != null) {
+			model.addAttribute("level_three_areas", level_three_areas);
+		}
+		
+		if(Helper.isSuperUser()){
+			model.addAttribute("isSystemAdmin",true);
+		}
+		
+		
 		return "manage/city_list";
 	}
 	

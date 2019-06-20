@@ -89,4 +89,16 @@ public class CityServiceImpl implements CityService{
 	public List<City> getCityByParent(Long parentId) {
 		return cityRepository.getCityByParent(parentId);
 	}
+
+	public List<City> findAllLevelOneArea() {
+		return cityRepository.findAllLevelOneArea();
+	}
+
+	public List<City> findAllLevelTwoArea() {
+		return cityRepository.findAllLevelTwoArea();
+	}
+
+	public List<City> findAllLevelThreeArea() {
+		return cityRepository.findAllLevelThreeArea();
+	}
 }
