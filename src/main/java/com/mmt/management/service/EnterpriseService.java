@@ -7,9 +7,12 @@ import org.springframework.data.domain.Page;
 import com.mmt.management.entity.EnterpriseUser;
 
 public interface EnterpriseService {
-	EnterpriseUser insertEnterprise(EnterpriseUser user);
 	
-	Page<EnterpriseUser> getEnterpriseUsers(int pageNumber, int pageSize);
+	Page<EnterpriseUser> getEnterprises(String name, String status, int pageNumber, int pageSize);
 	
 	List<EnterpriseUser> getAllEnterprise();
+
+	void updateEnterpriseStatus(Long status, Long id);
+
+	EnterpriseUser getOne(Long id);
 }

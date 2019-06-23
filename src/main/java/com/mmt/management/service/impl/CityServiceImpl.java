@@ -61,13 +61,13 @@ public class CityServiceImpl implements CityService{
 						Predicate p1 = cb.like(nameAttribute, "%"+name+"%");
 						p = cb.and(p1);
 						if(!"-1".equals(parentId)) {
-							Path<Integer> parentIdAttribute = root.get("parentId");
+							Path<Long> parentIdAttribute = root.get("parentId");
 							Predicate p2 = cb.equal(parentIdAttribute, parentId);
 							p = cb.and(p1, p2);
 						}
 					}else{
 						if(!"-1".equals(parentId)) {
-							Path<Integer> parentIdAttribute = root.get("parentId");
+							Path<Long> parentIdAttribute = root.get("parentId");
 							Predicate p2 = cb.equal(parentIdAttribute, parentId);
 							p = cb.and(p2);
 						}

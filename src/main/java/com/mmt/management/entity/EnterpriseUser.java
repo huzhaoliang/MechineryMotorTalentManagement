@@ -1,18 +1,7 @@
 package com.mmt.management.entity;
 
-import java.sql.Clob;
+import javax.persistence.*;
 import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 @Entity
 @Table(name="enterprise_user")
@@ -22,22 +11,31 @@ public class EnterpriseUser {
 	@GeneratedValue
 	@Column(name = "id", nullable = false)
 	private Long id;
+	@Column(unique=true)
 	private String name;
 	private String password;
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "city_id")
-	private City city;
+	private Long cityId;
 	private String locate;
-	private Clob description;
+	@Column(columnDefinition="TEXT")
+	private String description;
 	private String logoPath;
 	private String contact;
 	private String telephone;
 	private String postCode;
+	@Column(unique=true)
 	private String email;
 	private String webSite;
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Job> jobs;
-	private Long status;// 0:待审核 1:审核通过
+	private Long status;// 1:待审核 0:审核通过 2：审核未通过
+	//法人
+	private String legalPerson;
+	//法人身份证号
+	private String legalPersonId;
+	//社会统一信用代码
+	private String creditCode;
+	//营业执照
+	private String license;
 	/**
 	 * @return the id
 	 */
@@ -66,14 +64,14 @@ public class EnterpriseUser {
 	/**
 	 * @return the city
 	 */
-	public City getCity() {
-		return city;
+	public Long getCityId() {
+		return cityId;
 	}
 	/**
-	 * @param city the city to set
+	 * @param cityId the cityId to set
 	 */
-	public void setCity(City city) {
-		this.city = city;
+	public void setCityId(Long cityId) {
+		this.cityId = cityId;
 	}
 	/**
 	 * @return the locate
@@ -174,13 +172,13 @@ public class EnterpriseUser {
 	/**
 	 * @return the description
 	 */
-	public Clob getDescription() {
+	public String getDescription() {
 		return description;
 	}
 	/**
 	 * @param description the description to set
 	 */
-	public void setDescription(Clob description) {
+	public void setDescription(String description) {
 		this.description = description;
 	}
 	/**
@@ -206,5 +204,37 @@ public class EnterpriseUser {
 	 */
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getLegalPerson() {
+		return legalPerson;
+	}
+
+	public void setLegalPerson(String legalPerson) {
+		this.legalPerson = legalPerson;
+	}
+
+	public String getLegalPersonId() {
+		return legalPersonId;
+	}
+
+	public void setLegalPersonId(String legalPersonId) {
+		this.legalPersonId = legalPersonId;
+	}
+
+	public String getCreditCode() {
+		return creditCode;
+	}
+
+	public void setCreditCode(String creditCode) {
+		this.creditCode = creditCode;
+	}
+
+	public String getLicense() {
+		return license;
+	}
+
+	public void setLicense(String license) {
+		this.license = license;
 	}
 }
